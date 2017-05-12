@@ -19,7 +19,7 @@
 		
 		<property name="testService" ref="testService"></property>
 	
-	</bean> 
+	</bean>  
 	<bean id="personDao" class="yzwTax.itcast.test.dao.impl.TestDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>

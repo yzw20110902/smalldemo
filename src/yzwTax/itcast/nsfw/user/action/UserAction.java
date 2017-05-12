@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import yzwTax.itcast.nsfw.user.entity.User;
 import yzwTax.itcast.nsfw.user.service.UserService;
@@ -28,12 +27,16 @@ public class UserAction extends ActionSupport {
 	private String headImgFileName;
 
 	// 列表页面
-	@ResponseBody
-	public String listUI() {
+	// @ResponseBody
+	public String listUI() throws Exception {
 
-		// userList = userSerivce.findObjects();
+		try {
+			userList = userSerivce.findObjects();
 
-		System.out.println("========");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return "listUI";
 	}
@@ -80,6 +83,71 @@ public class UserAction extends ActionSupport {
 			e.printStackTrace();
 		}
 
+		return "list";
+	}
+
+	// 跳转到editUI
+	public String editUI() {
+
+		if (user != null && user.getId() != null) {
+			userSerivce.findObjectById(user.getId());
+
+		}
+
+		return "editUI";
+	}
+
+	// 保存编辑
+	public String edit() {
+		try {
+			if (user != null) {
+				// 处理头像
+				if (headImg != null) {
+					// 1、保存头像到upload/user
+					// 获取保存路径的绝对地址
+					String filePath = ServletActionContext.getServletContext()
+							.getRealPath("upload/user");
+					String fileName = UUID.randomUUID().toString()
+							.replaceAll("-", "")
+							+ headImgFileName.substring(headImgFileName
+									.lastIndexOf("."));
+					// 复制文件
+					FileUtils.copyFile(headImg, new File(filePath, fileName));
+
+					// 2、设置用户头像路径
+					user.setHeadImg("user/" + fileName);
+				}
+
+				userSerivce.update(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "list";
+	}
+
+	// 删除
+	public String delete() {
+
+		if (user != null && user.getId() != null) {
+
+			userSerivce.delete(user.getId());
+
+		}
+
+		return "list";
+	}
+
+	// 批量删除
+	public String deleteAll() {
+
+		if (selectRow != null) {
+
+			for (String id : selectRow) {
+
+				userSerivce.delete(id);
+			}
+		}
 		return "list";
 	}
 

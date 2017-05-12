@@ -14,7 +14,7 @@ public class TestAction extends ActionSupport {
 
 	public String execute() {
 
-		testService.say();
+		// testService.say();
 
 		return SUCCESS;
 

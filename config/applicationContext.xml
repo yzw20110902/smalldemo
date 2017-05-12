@@ -19,7 +19,7 @@
 	
 		<!-- 配置c3p0数据源 -->
 		
-		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
 			<property name="jdbcUrl" value="${jdbcUrl}"></property>
 			<property name="driverClass" value="${driverClass}"></property>
 			<property name="user" value="${user}"></property>
@@ -50,6 +50,7 @@
 			<property name="mappingLocations">
 				<list>
 					<value>classpath:yzwTax/itcast/test/entity/*.hbm.xml</value>
+					<value>classpath:yzwTax/itcast/nsfw/*/entity/*.hbm.xml</value>
 				</list>
 				
 			</property>

@@ -1,13 +1,16 @@
 package yzwTax.itcast.test.dao;
 
-import java.io.Serializable;
-
+import yzwTax.itcast.core.dao.BaseDao;
 import yzwTax.itcast.test.entity.Person;
 
-public interface TestDao {
-	// 保存人员
-	public void save(Person person);
+public interface TestDao extends BaseDao<Person> {
 
-	// 根据id查询人员
-	public Person findPerson(Serializable id);
+	// Person findPerson(Serializable id);
+	// // 保存人员
+	// public void save(Person person);
+	//
+	// // 根据id查询人员
+	// public Person findPerson(Serializable id);
+	//
+	// public List<Person> findObList();
 }

@@ -55,7 +55,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	public List<T> findObjects() {
 		// TODO Auto-generated method stub
 
-		Query query = getSession().createQuery("FROM" + clazz.getSimpleName());
+		Query query = getSession().createQuery("FROM " + clazz.getSimpleName());
 
 		return query.list();
 	}

@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findObjectById(Serializable id) {
 		// TODO Auto-generated method stub
+		System.out.println(userDao.findObjectById(id));
 		return userDao.findObjectById(id);
 	}
 

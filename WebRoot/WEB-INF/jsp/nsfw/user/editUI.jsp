@@ -6,7 +6,7 @@
     
 </head>
 <body class="rightBody">
-<form id="form" name="form" action="" method="post" enctype="multipart/form-data">
+<form id="form" name="form" action="${basePath}nsfw/user_edit.action" method="post" enctype="multipart/form-data">
     <div class="p_d_1">
         <div class="p_d_1_1">
             <div class="content_info">
@@ -15,28 +15,29 @@
     <table id="baseInfo" width="100%" align="center" class="list" border="0" cellpadding="0" cellspacing="0"  >
         <tr>
             <td class="tdBg" width="200px">所属部门：</td>
-            <td><s:select name="user.dept" list=""/></td>
+            <td><s:select name="user.dept" list="#{'A':'技术','B':'Hr'}"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">头像：</td>
             <td>
-                
-                    <img src="" width="100" height="100"/>
-                
+                <s:if test="%{user.headImg!=null&&user.headImg!=''}">
+                    <img src="${basePath}upload/<s:property value="user.headImg"/>" width="100" height="100"/>
+                    <s:hidden name="user.headImg"> </s:hidden>
+                </s:if>
                 <input type="file" name="headImg"/>
             </td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">用户名：</td>
-            <td><s:textfield name="user.name"/> </td>
+            <td><s:textfield id="name" name="user.name" value="%{user.name}" /></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">帐号：</td>
-            <td><s:textfield name="user.account"/></td>
+            <td><s:textfield id="account" name="user.account"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">密码：</td>
-            <td><s:textfield name="user.password"/></td>
+            <td><s:textfield id="password" name="user.password" /></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">性别：</td>

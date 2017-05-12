@@ -21,6 +21,12 @@
 	
 	</bean> 
 	
+	<!-- <bean id="userService" class="yzwTax.itcast.nsfw.user.dao.impl.UserDaoImpl" parent="baseDao">
+	
+		 <property name="sessionFactory" ref="sessionFactory"></property> 
+	
+	</bean> 
+	 -->
 	
 	<!-- 扫描service -->
 
