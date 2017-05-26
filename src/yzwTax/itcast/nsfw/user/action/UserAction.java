@@ -90,7 +90,7 @@ public class UserAction extends ActionSupport {
 	public String editUI() {
 
 		if (user != null && user.getId() != null) {
-			userSerivce.findObjectById(user.getId());
+			user = userSerivce.findObjectById(user.getId());
 
 		}
 

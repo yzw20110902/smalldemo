@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-
+ <constant name="struts.devMode" value="false"></constant>
 	<package name="user-action" namespace="/nsfw" extends="base-default">
 	
 		<action name="user_*" class="yzwTax.itcast.nsfw.user.action.UserAction" method="{1}">

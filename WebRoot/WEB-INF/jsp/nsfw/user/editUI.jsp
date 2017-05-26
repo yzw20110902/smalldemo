@@ -5,14 +5,18 @@
     <title>用户管理</title>
     
 </head>
+
 <body class="rightBody">
 <form id="form" name="form" action="${basePath}nsfw/user_edit.action" method="post" enctype="multipart/form-data">
+
+
     <div class="p_d_1">
         <div class="p_d_1_1">
             <div class="content_info">
     <div class="c_crumbs"><div><b></b><strong>用户管理</strong>&nbsp;-&nbsp;编辑用户</div></div>
     <div class="tableH2">编辑用户</div>
     <table id="baseInfo" width="100%" align="center" class="list" border="0" cellpadding="0" cellspacing="0"  >
+   <%--  <s:debug><s:property value="user.name"/></s:debug> --%>
         <tr>
             <td class="tdBg" width="200px">所属部门：</td>
             <td><s:select name="user.dept" list="#{'A':'技术','B':'Hr'}"/></td>
@@ -22,7 +26,7 @@
             <td>
                 <s:if test="%{user.headImg!=null&&user.headImg!=''}">
                     <img src="${basePath}upload/<s:property value="user.headImg"/>" width="100" height="100"/>
-                    <s:hidden name="user.headImg"> </s:hidden>
+                    <s:hidden name="user.id"> </s:hidden>
                 </s:if>
                 <input type="file" name="headImg"/>
             </td>
@@ -57,7 +61,13 @@
         </tr>        
         <tr>
             <td class="tdBg" width="200px">生日：</td>
-            <td><s:textfield id="birthday" name="user.birthday" /></td>
+            <td>
+     
+            <s:textfield id="birthday" name="user.birthday">
+             <s:param name="value"><s:date name="user.birthday" format="yyyy-MM-dd"/></s:param>
+            </s:textfield>
+            
+            </td>
         </tr>
 		<tr>
             <td class="tdBg" width="200px">状态：</td>
