@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -25,6 +26,10 @@ public class UserAction extends ActionSupport {
 	private File headImg;
 	private String headImgContenttype;
 	private String headImgFileName;
+
+	private File userExcel;
+	private String userExcelContentType;
+	private String userExcelFileName;
 
 	// 列表页面
 	// @ResponseBody
@@ -59,19 +64,25 @@ public class UserAction extends ActionSupport {
 					// 1.保存头像到upload/user
 					// 获取保存路径的绝对地址
 
-					String filePath = ServletActionContext.getServletContext()
-							.getRealPath("upload/user");
+					// String filePath =
+					// ServletActionContext.getServletContext()
+					// .getRealPath("upload/user");
+					String filePath = "C:/Users/50188/Desktop/apache-tomcat-7.0.72/webapps/img/";
 
+					// HttpServletRequest request = ServletActionContext
+					// .getRequest();
+					// String filePath = request.getScheme() + "://"
+					// + request.getServerName() + ":"
+					// + request.getServerPort() + "/";
 					String fileName = UUID.randomUUID().toString()
 							.replace("-", "")
 							+ headImgFileName.substring(headImgFileName
 									.lastIndexOf("."));
 
-					System.out.println(filePath + ":" + fileName);
 					FileUtils.copyFile(headImg, new File(filePath, fileName));
 
 					// 2.设置用户头像路径
-					user.setHeadImg("user/" + fileName);
+					user.setHeadImg(fileName);
 
 				}
 				userSerivce.save(user);
@@ -105,17 +116,20 @@ public class UserAction extends ActionSupport {
 				if (headImg != null) {
 					// 1、保存头像到upload/user
 					// 获取保存路径的绝对地址
-					String filePath = ServletActionContext.getServletContext()
-							.getRealPath("upload/user");
+
+					String filePath = "C:/Users/50188/Desktop/apache-tomcat-7.0.72/webapps/img/";
+
 					String fileName = UUID.randomUUID().toString()
 							.replaceAll("-", "")
 							+ headImgFileName.substring(headImgFileName
 									.lastIndexOf("."));
+					System.out.println(filePath + ":" + fileName);
 					// 复制文件
 					FileUtils.copyFile(headImg, new File(filePath, fileName));
 
 					// 2、设置用户头像路径
-					user.setHeadImg("user/" + fileName);
+					user.setHeadImg(fileName);
+
 				}
 
 				userSerivce.update(user);
@@ -149,6 +163,24 @@ public class UserAction extends ActionSupport {
 			}
 		}
 		return "list";
+	}
+
+	// 导出用户列表
+	public void exportExcel() {
+
+		try {
+			// 1.查找用户列表
+			userList = userSerivce.findObjects();
+			// 2.导出
+			HttpServletResponse response = ServletActionContext.getResponse();
+			response.setContentType("application/x-execl");
+			response.setHeader("Content-Disposition", "attachment;filename="
+					+ new String("用户列表.xls".getBytes(), "ISO-8859-1"));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 
 	public List<User> getUserList() {
@@ -205,5 +237,29 @@ public class UserAction extends ActionSupport {
 
 	public void setHeadImgFileName(String headImgFileName) {
 		this.headImgFileName = headImgFileName;
+	}
+
+	public File getUserExcel() {
+		return userExcel;
+	}
+
+	public void setUserExcel(File userExcel) {
+		this.userExcel = userExcel;
+	}
+
+	public String getUserExcelContentType() {
+		return userExcelContentType;
+	}
+
+	public void setUserExcelContentType(String userExcelContentType) {
+		this.userExcelContentType = userExcelContentType;
+	}
+
+	public String getUserExcelFileName() {
+		return userExcelFileName;
+	}
+
+	public void setUserExcelFileName(String userExcelFileName) {
+		this.userExcelFileName = userExcelFileName;
 	}
 }

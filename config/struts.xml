@@ -17,7 +17,8 @@
 	<constant name="struts.ui.theme" value="simple" />
 	
 
-	
+	<!-- 限制上传大小 -->
+	<constant name="struts.multipart.maxSize" value="10485760"/>
 		<!-- 配置全局结果及异常映射 -->
 	 <package name="base-default" extends="struts-default"> 
 		<!-- 返回结果类型 -->

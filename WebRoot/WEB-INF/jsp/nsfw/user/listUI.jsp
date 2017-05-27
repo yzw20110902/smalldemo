@@ -14,7 +14,7 @@
 			// jquery 1.6 前
 			//$("input[name=selectedRow]").attr("checked", $("#selAll").is(":checked"));
 			//prop jquery 1.6+建议使用
-			$("input[name=selectedRow]").prop("checked", $("#selAll").is(":checked"));		
+			$("input[name=selectRow]").prop("checked", $("#selAll").is(":checked"));		
 		}
       	
       	function doAdd(){
@@ -32,7 +32,22 @@
       		document.forms[0].action="${basePath}nsfw/user_editUI.action?user.id="+id;
       		document.forms[0].submit(); 
       	}
-      	
+      	//批量删除
+      	function doDeleteAll(){
+      		
+      		document.forms[0].action="${basePath}nsfw/user_deleteAll.action";
+      		document.forms[0].submit(); 
+      		
+      	}
+      	//导出
+      	function doExportExcel(){
+      		
+      	}
+      	//导入
+      	function doImportExcel(){
+      		
+      		
+      	}
       	
     </script>
 </head>
@@ -71,7 +86,7 @@
                         
                         <s:iterator value="userList" status="st">
                             <tr <s:if test="#st.odd"> bgcolor="f8f8f8"</s:if>>
-                                <td align="center"><input type="checkbox" name="selectedRow" value='<s:property value="id"/>'/></td>
+                                <td align="center"><input type="checkbox" name="selectRow" value='<s:property value="id"/>'/></td>
                                 <td align="center"><s:property value="name"/></td>
                                 <td align="center"><s:property value="account"/></td>
                                 <td align="center"><s:property value="dept"/></td>
