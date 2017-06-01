@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
@@ -177,10 +178,33 @@ public class UserAction extends ActionSupport {
 			response.setHeader("Content-Disposition", "attachment;filename="
 					+ new String("用户列表.xls".getBytes(), "ISO-8859-1"));
 
+			ServletOutputStream outputStream = response.getOutputStream();
+
+			userSerivce.exportExcel(userList, outputStream);
+
+			if (outputStream != null) {
+
+				outputStream.close();
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 
+	}
+
+	// 导入用户列表
+	public String importExcel() {
+
+		if (userExcel != null) {
+
+			if (userExcelFileName.matches("^.+\\.(?i)((xls)|(xlsx))$")) {
+				// 2.导入
+				userSerivce.importExcel(userExcel, userExcelFileName);
+
+			}
+		}
+		return "list";
 	}
 
 	public List<User> getUserList() {

@@ -20,7 +20,8 @@ public class SysResultAction extends StrutsResultSupport {
 
 		ActionInvocation invocation = null;
 		BaseAction action = (BaseAction) invocation.getAction();
-
+		// do something
+		System.out.println("进入了 SysResultAction ...");
 	}
 
 }

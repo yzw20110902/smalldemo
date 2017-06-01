@@ -27,21 +27,23 @@
 		</result-types> 
 		<!-- 全局返回结果 -->
 		<global-results>
-			<result name="error" type="error">/WEB-INF/jsp/error.jsp</result>
-			<result name="sysError">/WEB-INF/jsp/error.jsp</result>
-			<result name="input">/WEB-INF/jsp/error.jsp</result>
+			<result name="error" type="error">/WEB-INF/jsp/error/error1.jsp</result>
+			<result name="sysError">/WEB-INF/jsp/error/error2.jsp</result>
+			<result name="input">/WEB-INF/jsp/error/error3.jsp</result>
 		</global-results> 
 		<!-- 全局异常映射 -->
-		<!-- <global-exception-mappings>
+		 <global-exception-mappings>
 			<exception-mapping result="sysError" exception="cn.itcast.core.exception.SysException"></exception-mapping>
 			<exception-mapping result="input" exception="java.lang.Exception"></exception-mapping>
-		</global-exception-mappings> -->
+		</global-exception-mappings> 
 	</package> 
 
 	
 	<include file="yzwTax/itcast/test/conf/test-struts.xml"></include>
-	
+	<!-- 包含用户管理的文件 -->
 	<include file="yzwTax/itcast/nsfw/user/conf/user-struts.xml"></include>
+	<!-- 包含用户权限管理的文件 -->
+	<include file="yzwTax/itcast/nsfw/role/conf/role-struts.xml"></include>
 	
 
 	
