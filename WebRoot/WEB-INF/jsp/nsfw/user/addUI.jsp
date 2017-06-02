@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td class="tdBg" width="200px">帐号：</td>
-            <td><s:textfield name="user.account"/></td>
+            <td><s:textfield name="user.account" id="account" onchange="doVerify()"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">密码：</td>
@@ -41,7 +41,11 @@
         </tr>
         <tr>
             <td class="tdBg" width="200px">角色：</td>
-            <td></td>
+            <td>
+            
+            	<s:checkboxlist list="#roleList" name="userRoleIds" listKey="roleId" listValue="name" ></s:checkboxlist>
+            
+            </td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">电子邮箱：</td>
@@ -53,7 +57,7 @@
         </tr>
         <tr>
             <td class="tdBg" width="200px">生日：</td>
-            <td><s:textfield id="birthday" name="user.birthday" /></td>
+            <td><s:textfield id="birthday" name="user.birthday" onfocus="WdatePicker({'skin':'whyGreen','dateFmt':'yyyy-MM-dd'});" /></td>
         </tr>
 		<tr>
             <td class="tdBg" width="200px">状态：</td>
@@ -72,4 +76,66 @@
     </div></div></div>
 </form>
 </body>
+<script type="text/javascript">
+	var strResult=false;
+	//校验账号唯一
+	function doVerify(){
+		
+		//获取账号
+		var account=$("#account").val();
+		
+		if(account!=""){
+			$.ajax({
+				url:"${basePath }nsfw/user_verifyAccount.action",
+				data:{"user.account":account},
+				type:"post",
+				async:false,
+				success:function(msg){
+					
+					console.log(JSON.stringify(msg))
+					if("true"!=msg){
+						
+						//帐号已经存在
+						alert("帐号已经存在。请使用其它帐号！");
+						//定焦
+						$("#account").focus();
+						vResult = false;
+					}else{
+						
+						vResult = true;
+					}
+					
+					
+				}
+				
+				
+			})
+			
+		}
+		
+	}
+
+	//提交表单
+	function doSubmit(){
+		var name = $("#name");
+		if(name.val() == ""){
+			alert("用户名不能为空！");
+			name.focus();
+			return false;
+		}
+		var password = $("#password");
+		if(password.val() == ""){
+			alert("密码不能为空！");
+			password.focus();
+			return false;
+		}
+		//帐号校验
+		doVerify();
+		if(vResult){
+    		//提交表单
+    		document.forms[0].submit();
+		}
+	}
+
+</script>
 </html>

@@ -18,8 +18,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import yzwTax.itcast.core.util.ExcelUtil;
+import yzwTax.itcast.nsfw.role.entity.Role;
 import yzwTax.itcast.nsfw.user.dao.UserDao;
 import yzwTax.itcast.nsfw.user.entity.User;
+import yzwTax.itcast.nsfw.user.entity.UserRole;
+import yzwTax.itcast.nsfw.user.entity.UserRoleId;
 import yzwTax.itcast.nsfw.user.service.UserService;
 
 @Service("userService")
@@ -149,6 +152,75 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public List<User> findUserByAccountAndId(String id, String account) {
+		// TODO Auto-generated method stub
+		return userDao.findUserByAccountAndId(id, account);
+	}
+
+	@Override
+	public void saveUserRole(UserRole userRole) {
+		// TODO Auto-generated method stub
+		userDao.saveUserRole(userRole);
+
+	}
+
+	@Override
+	public void deleteUserRoleByUserId(Serializable id) {
+		// TODO Auto-generated method stub
+		userDao.deleteUserRoleByUserId(id);
+	}
+
+	@Override
+	public List<UserRole> getUserRolesByUserId(Serializable id) {
+		// TODO Auto-generated method stub
+		return userDao.getUserRolesByUserId(id);
+	}
+
+	@Override
+	public List<User> findUserByAccountAndPass(String account, String password) {
+		// TODO Auto-generated method stub
+		return userDao.findUserByAccountAndPass(account, password);
+	}
+
+	@Override
+	public void saveUserAndRole(User user, String... roleIds) {
+		// 1. 保存用户
+		save(user);
+		// 2.保存对应角色
+		if (roleIds != null) {
+			for (String roleId : roleIds) {
+
+				userDao.saveUserRole(new UserRole(new UserRoleId(new Role(
+						roleId), user.getId())));
+
+			}
+
+		}
+
+	}
+
+	@Override
+	public void updateUserAndRole(User user, String... roleIds) {
+		// TODO Auto-generated method stub
+
+		// 1.根据用户id删除该用户的所有角色
+		deleteUserRoleByUserId(user.getId());
+		// 2.更新用户
+		update(user);
+		// 3.保存用户对应的角色
+		if (roleIds != null) {
+
+			for (String roleId : roleIds) {
+
+				userDao.saveUserRole(new UserRole(new UserRoleId(new Role(
+						roleId), user.getId())));
+
+			}
 		}
 
 	}

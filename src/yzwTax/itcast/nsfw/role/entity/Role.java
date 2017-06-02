@@ -14,13 +14,13 @@ public class Role implements Serializable {
 	public static String ROLE_STATE_VALID = "1";// 有效
 	public static String ROLE_STATE_INVALID = "0";// 无效
 
-	public Role() {
-		super();
+	public Role(String roleId) {
+		this.roleId = roleId;
 	}
 
 	public Role(String roleId, String name, String state,
 			Set<RolePrivilege> rolePrivileges) {
-		super();
+
 		this.roleId = roleId;
 		this.name = name;
 		this.state = state;
