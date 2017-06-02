@@ -18,6 +18,7 @@
             <td><s:textfield name="role.name" /></td>
         </tr>
         <tr>
+        
             <td class="tdBg" width="200px">角色权限：</td>
             <td>
            <%--  <s:iterator value="#privilegeMap">  
