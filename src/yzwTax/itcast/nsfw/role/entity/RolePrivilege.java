@@ -7,7 +7,7 @@ public class RolePrivilege implements Serializable {
 	private RolePrivilegeId id;
 
 	public RolePrivilege() {
-
+		super();
 	}
 
 	public RolePrivilege(RolePrivilegeId id) {

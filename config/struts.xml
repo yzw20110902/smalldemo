@@ -29,12 +29,12 @@
 		<global-results>
 			<result name="error" type="error">/WEB-INF/jsp/error/error1.jsp</result>
 			<result name="sysError">/WEB-INF/jsp/error/error2.jsp</result>
-			<result name="input">/WEB-INF/jsp/error/error3.jsp</result>
+		<!-- 	<result name="input">/WEB-INF/jsp/error/error3.jsp</result> -->
 		</global-results> 
 		<!-- 全局异常映射 -->
 		 <global-exception-mappings>
 			<exception-mapping result="sysError" exception="cn.itcast.core.exception.SysException"></exception-mapping>
-			<exception-mapping result="input" exception="java.lang.Exception"></exception-mapping>
+			<!-- <exception-mapping result="input" exception="java.lang.Exception"></exception-mapping> -->
 		</global-exception-mappings> 
 	</package> 
 

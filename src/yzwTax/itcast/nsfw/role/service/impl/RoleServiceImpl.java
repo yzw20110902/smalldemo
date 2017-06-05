@@ -27,14 +27,16 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void update(Role role) {
-		// TODO Auto-generated method stub
-
+		// 删除用户下的权限
+		roleDao.deleteRolePrivilegeByRoleId(role.getRoleId());
+		// 2.更新
 		roleDao.update(role);
 	}
 
 	@Override
 	public void delete(Serializable id) {
 		// TODO Auto-generated method stub\
+
 		roleDao.delete(id);
 
 	}

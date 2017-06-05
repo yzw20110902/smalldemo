@@ -29,7 +29,7 @@ public interface UserDao extends BaseDao<User> {
 	public void deleteUserRoleByUserId(Serializable id);
 
 	// 根据用户id 获取该用户对应的所有用户角色
-	public List<UserRole> getUserRolesByUserId(Serializable id);
+	public List<UserRole> getUserRolesByUserId(String id);
 
 	// 根据用户的账号和密码查询用户列表
 	public List<User> findUserByAccountAndPass(String account, String password);

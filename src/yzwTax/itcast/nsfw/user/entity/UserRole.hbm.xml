@@ -11,6 +11,5 @@
 	  			<column name="user_id " length="32" ></column>
 	  		</key-property>
 	  </composite-id>	
-	
  </class>
 </hibernate-mapping>

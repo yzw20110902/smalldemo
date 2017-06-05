@@ -12,7 +12,7 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 	public void deleteRolePrivilegeByRoleId(String roleId) {
 		// TODO Auto-generated method stub
 		Query query = getSession().createQuery(
-				"DELETE　FROM RolePrivilege WHERE id.role.roleId=?");
+				"DELETE FROM RolePrivilege WHERE id.role.roleId=?");
 		query.setParameter(0, roleId);
 		query.executeUpdate();
 	}

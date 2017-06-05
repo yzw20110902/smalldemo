@@ -19,7 +19,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 		String hql = "FROM User WHERE account=?";
 		if (StringUtils.isNotBlank(id)) {
-			hql += "AND id!=?";
+			hql += " AND id!=?";
 
 		}
 
@@ -53,12 +53,14 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	}
 
 	@Override
-	public List<UserRole> getUserRolesByUserId(Serializable id) {
+	public List<UserRole> getUserRolesByUserId(String id) {
 		// TODO Auto-generated method stub
 
 		Query query = getSession().createQuery(
-				"FROM　UserRole WHERE id.userId=?");
+				"FROM UserRole WHERE id.userId=?");
 		query.setParameter(0, id);
+
+		// System.out.println("=====" + query.list());
 		return query.list();
 	}
 

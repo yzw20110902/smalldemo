@@ -43,8 +43,8 @@
             <td class="tdBg" width="200px">角色：</td>
             <td>
             
-            	<s:checkboxlist list="#roleList" name="userRoleIds" listKey="roleId" listValue="name" ></s:checkboxlist>
-            
+        	  <s:checkboxlist list="#roleList" name="userRoleIds" listKey="roleId" listValue="name" ></s:checkboxlist>  
+       
             </td>
         </tr>
         <tr>

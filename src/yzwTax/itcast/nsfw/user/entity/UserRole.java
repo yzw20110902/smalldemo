@@ -8,6 +8,7 @@ public class UserRole implements Serializable {
 
 	public UserRole() {
 		// TODO Auto-generated constructor stub
+
 	}
 
 	public UserRole(UserRoleId id) {

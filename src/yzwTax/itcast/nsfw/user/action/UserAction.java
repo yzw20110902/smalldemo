@@ -12,18 +12,19 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
+import yzwTax.itcast.core.action.BaseAction;
 import yzwTax.itcast.nsfw.role.service.RoleService;
 import yzwTax.itcast.nsfw.user.entity.User;
 import yzwTax.itcast.nsfw.user.entity.UserRole;
 import yzwTax.itcast.nsfw.user.service.UserService;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
-public class UserAction extends ActionSupport {
+public class UserAction extends BaseAction {
 
 	@Resource
 	private UserService userSerivce;
+
 	@Resource
 	private RoleService roleService;
 
@@ -82,11 +83,6 @@ public class UserAction extends ActionSupport {
 					// .getRealPath("upload/user");
 					String filePath = "C:/Users/50188/Desktop/apache-tomcat-7.0.72/webapps/img/";
 
-					// HttpServletRequest request = ServletActionContext
-					// .getRequest();
-					// String filePath = request.getScheme() + "://"
-					// + request.getServerName() + ":"
-					// + request.getServerPort() + "/";
 					String fileName = UUID.randomUUID().toString()
 							.replace("-", "")
 							+ headImgFileName.substring(headImgFileName
