@@ -53,13 +53,13 @@ public class UserServiceImpl implements UserService {
 		userDao.delete(id);
 		// 删除用户对应的所有权限
 		userDao.deleteUserRoleByUserId(id);
-
 	}
 
 	@Override
 	public User findObjectById(Serializable id) {
 		// TODO Auto-generated method stub
-		// System.out.println(userDao.findObjectById(id));
+		System.out.println(userDao.findObjectById(id).getId());
+
 		return userDao.findObjectById(id);
 	}
 
@@ -195,31 +195,22 @@ public class UserServiceImpl implements UserService {
 						roleId), user.getId())));
 
 			}
-
 		}
-
 	}
 
 	@Override
 	public void updateUserAndRole(User user, String... roleIds) {
-		// TODO Auto-generated method stub
 
-		System.out.println("=+++" + user.getId());
 		// 1.根据用户id删除该用户的所有角色
 		userDao.deleteUserRoleByUserId(user.getId());
-
 		// 2.更新用户
 		update(user);
 		// 3.保存用户对应的角色
 		if (roleIds != null) {
-
 			for (String roleId : roleIds) {
-
 				userDao.saveUserRole(new UserRole(new UserRoleId(new Role(
 						roleId), user.getId())));
-
 			}
 		}
-
 	}
 }

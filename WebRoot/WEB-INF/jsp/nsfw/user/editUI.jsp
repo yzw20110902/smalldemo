@@ -7,7 +7,7 @@
 </head>
 
 <body class="rightBody">
-<form id="form" name="form" action="${basePath}nsfw/user_edit.action" method="post" enctype="multipart/form-data">
+<form id="form" name="form" action="${basePath}nsfw/user_edit.action?" method="post" enctype="multipart/form-data">
 
 
     <div class="p_d_1">
@@ -26,14 +26,14 @@
             <td>
                 <s:if test="%{user.headImg!=null&&user.headImg!=''}">
                     <img src="${basePath1}img/<s:property value="user.headImg"/>" width="100" height="100"/>
-                    <s:hidden name="user.id"> </s:hidden>
+                    <s:hidden name="user.headImg"> </s:hidden>
                 </s:if>
                 <input type="file" name="headImg"/>
             </td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">用户名：</td>
-            <td><s:textfield id="name" name="user.name" value="%{user.name}" /></td>
+            <td><s:textfield id="name" name="user.name" value="%{user.name}" /><s:hidden name="user.id"> </s:hidden></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">帐号：</td>

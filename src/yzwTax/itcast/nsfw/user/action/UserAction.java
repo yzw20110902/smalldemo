@@ -27,7 +27,6 @@ public class UserAction extends BaseAction {
 
 	@Resource
 	private RoleService roleService;
-
 	private User user;
 	private List<User> userList;
 
@@ -95,6 +94,7 @@ public class UserAction extends BaseAction {
 
 				}
 				userSerivce.saveUserAndRole(user, userRoleIds);
+				// userSerivce.save(user);
 
 			}
 
@@ -131,7 +131,7 @@ public class UserAction extends BaseAction {
 	// 保存编辑
 	public String edit() {
 		try {
-			if (user != null) {
+			if (user != null && user.getId() != null) {
 				// 处理头像
 				if (headImg != null) {
 					// 1、保存头像到upload/user
@@ -152,6 +152,7 @@ public class UserAction extends BaseAction {
 
 				}
 
+				// userSerivce.update(user);
 				userSerivce.updateUserAndRole(user, userRoleIds);
 
 			}
