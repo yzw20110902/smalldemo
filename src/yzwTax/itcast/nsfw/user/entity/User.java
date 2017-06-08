@@ -2,6 +2,7 @@ package yzwTax.itcast.nsfw.user.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -18,6 +19,8 @@ public class User implements Serializable {
 	private String email;
 	private Date birthday;
 	private String memo;
+
+	private List<UserRole> userRoles;
 
 	// 用户状态
 	public static String USER_STATE_VALID = "1";// 有效
@@ -137,6 +140,14 @@ public class User implements Serializable {
 
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+
+	public List<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
 	}
 
 }

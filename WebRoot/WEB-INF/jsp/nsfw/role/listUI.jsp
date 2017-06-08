@@ -86,7 +86,7 @@
                                 			
                                 		</s:iterator>
                                 </td>
-                                <td align="center"><s:property value="state==1?s'有效':'无效'"/></td>
+                                <td align="center"><s:property value="state==1?'有效':'无效'"/></td>
                                 <td align="center">
                                     <a href="javascript:doEdit('<s:property value="roleId"/>')">编辑</a>
                                     <a href="javascript:doDelete('<s:property value="roleId"/>')">删除</a>

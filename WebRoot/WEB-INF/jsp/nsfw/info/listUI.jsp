@@ -4,7 +4,13 @@
     <%@include file="/common/header.jsp"%>
     <title>信息发布管理</title>
     <script type="text/javascript">
-        
+	//全选、全反选
+	function doSelectAll(){
+		// jquery 1.6 前
+		//$("input[name=selectedRow]").attr("checked", $("#selAll").is(":checked"));
+		//prop jquery 1.6+建议使用
+		$("input[name=selectedRow]").prop("checked", $("#selAll").is(":checked"));		
+	}
     function doAdd(){
     	
     	document.forms[0].action="${basePath}nsfw/info_addUI.action";
@@ -19,10 +25,62 @@
     }
 	function doDelete(id){
     	
-    	document.forms[0].action="${basePath}nsfw/info_delete.action?info.id="+id;
+    	document.forms[0].action="${basePath}nsfw/info_delete.action?info.infoId="+id;
   		document.forms[0].submit();
     	
     }
+	
+	function doEdit(id){
+    	
+    	document.forms[0].action="${basePath}nsfw/info_editUI.action?info.infoId="+id;
+  		document.forms[0].submit();
+    	
+    }
+	//批量删除
+  	function doDeleteAll(){
+  		document.forms[0].action = "${basePath}nsfw/info_deleteSelected.action";
+  		document.forms[0].submit();
+  	}
+	
+	//更新状态
+	function doPublic(id,state){
+		
+		$.ajax({
+			url:"${basePath}nsfw/info_publicInfo.action?",
+			data:{"info.infoId":id,"info.state":state},
+			type:"post",
+			success:function(msg){
+				
+				alert(msg)
+				if(msg=="success"){
+					if(state=="1"){
+						$("#show_"+id).html('发布');
+						$("#oper_"+id).html('<a href="javascript:doPublic(\''+id+'\',0)">停用</a>');
+					}else{
+						
+						$("#show_"+id).html('停用');
+						$("#oper_"+id).html('<a href="javascript:doPublic(\''+id+'\',1)">发布</a>');
+					}
+					
+				}else{
+					alert("更新信息状态失败！");
+				}
+				
+				
+			},
+			error:function(err){
+				
+				alert(err)
+				
+			}
+					
+			
+			
+		})
+		
+		
+		
+	}
 	
 	
     </script>
@@ -37,7 +95,7 @@
                     <li>
                         信息标题：<s:textfield name="info.title" cssClass="s_text" id="infoTitle"  cssStyle="width:160px;"/>
                     </li>
-                    <li><input type="button" class="s_button" value="搜 索" onclick="doSearch()"/></li>
+                    <li><input type="button" class="s_button" value="搜 索" onclick="doS earch()"/></li>
                     <li style="float:right;">
                         <input type="button" value="新增" class="s_button" onclick="doAdd()"/>&nbsp;
                         <input type="button" value="删除" class="s_button" onclick="doDeleteAll()"/>&nbsp;
@@ -64,12 +122,16 @@
                                 </td>
                                 <td align="center"><s:property value="creator"/></td>
                                 <td align="center"><s:date name="createTime" format="yyyy-MM-dd HH:mm"/></td>
-                                <td align="center"><s:property value="state==1?'发布':'停用'"/></td>
+                                <td align="center" id="show_<s:property value='infoId'/>"><s:property value="state==1?'发布':'停用'"/></td>
                                 <td align="center">
-                                	<span >
-                                	
-                                		<a href="#">停用</a>
-                                	
+                                	<span id="oper_<s:property value='infoId'/>">
+                                		
+                                		<s:if test="state==1">
+                                			<a href="javascript:doPublic('<s:property value='infoId'/>',0)">停用</a>
+                                		</s:if>	
+                                		<s:else>
+                                			<a href="javascript:doPublic('<s:property value='infoId'/>',1)">发布</a>
+                                		</s:else>
                                 	</span>
                                     <a href="javascript:doEdit('<s:property value='infoId'/>')">编辑</a>
                                     <a href="javascript:doDelete('<s:property value='infoId'/>')">删除</a>
@@ -80,8 +142,7 @@
                 </div>
             </div>
         <div class="c_pate" style="margin-top: 5px;">
-		<table width="100%" class="pageDown" border="0" cellspacing="0"
-			cellpadding="0">
+		<table width="100%" class="pageDown" border="0" cellspacing="0"cellpadding="0">
 			<tr>
 				<td align="right">
                  	总共1条记录，当前第 1 页，共 1 页 &nbsp;&nbsp;
@@ -92,10 +153,8 @@
 			</tr>
 		</table>	
         </div>
-
         </div>
     </div>
 </form>
-
 </body>
 </html>

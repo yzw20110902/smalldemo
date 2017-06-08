@@ -35,11 +35,13 @@ public class InfoServiceImpl implements InfoService {
 	public void delete(Serializable id) {
 		// TODO Auto-generated method stub
 
+		System.out.println(id);
+
 		infoDao.delete(id);
 	}
 
 	@Override
-	public Info findObjectByid(Serializable id) {
+	public Info findObjectById(Serializable id) {
 		// TODO Auto-generated method stub
 		return infoDao.findObjectById(id);
 	}

@@ -16,6 +16,17 @@
  </context-param>
  
  
+ <!-- 登录拦截 -->
+<filter>
+	<filter-name>loginFilter</filter-name>
+	<filter-class>yzwTax.itcast.core.filter.LoginFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>loginFilter</filter-name>
+	<url-pattern>*.action</url-pattern>
+</filter-mapping>
+ 
+ 
  <!--struts配置  -->
  
  <filter>
@@ -28,6 +39,9 @@
 	<url-pattern>/*</url-pattern>
  </filter-mapping>
  
+
+
+
  
  
  

@@ -18,7 +18,7 @@ public interface InfoService {
 
 	// 根据id查找
 
-	public Info findObjectByid(Serializable id);
+	public Info findObjectById(Serializable id);
 
 	// 查找列表
 	public List<Info> findObjects();

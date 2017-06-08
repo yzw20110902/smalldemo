@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 
 import yzwTax.itcast.core.action.BaseAction;
 import yzwTax.itcast.nsfw.info.entity.Info;
@@ -55,6 +59,8 @@ public class InfoAction extends BaseAction {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+
 		}
 
 		return "list";
@@ -69,9 +75,93 @@ public class InfoAction extends BaseAction {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 		return "list";
+
+	}
+
+	// 删除所有的
+
+	public String deleteSelected() {
+
+		if (selectedRow != null) {
+
+			for (String id : selectedRow) {
+
+				infoService.delete(id);
+			}
+
+		}
+
+		return "list";
+	}
+
+	// 编辑页面
+
+	public String editUI() {
+		// 加载分类集合
+		ActionContext.getContext().getContextMap()
+				.put("infoTypeMap", Info.INFO_TYPE_MAP);
+
+		if (info != null && info.getInfoId() != null) {
+
+			info = infoService.findObjectById(info.getInfoId());
+
+		}
+
+		return "editUI";
+	}
+
+	// 编辑
+
+	public String edit() {
+
+		try {
+			if (info != null) {
+
+				infoService.update(info);
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return "list";
+	}
+
+	// 异步发布消息
+
+	public void publicInfo() {
+		try {
+
+			if (info != null) {
+
+				// 1.更新信息状态
+				Info item = infoService.findObjectById(info.getInfoId());
+
+				item.setState(info.getState());
+
+				infoService.update(item);
+
+				// 2.输出接口信息
+
+				HttpServletResponse response = ServletActionContext
+						.getResponse();
+				response.setContentType("text/html");
+				ServletOutputStream outputStream = response.getOutputStream();
+
+				outputStream.write("success".getBytes());
+				outputStream.close();
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+
+			e.printStackTrace();
+		}
 
 	}
 

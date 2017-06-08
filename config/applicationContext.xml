@@ -83,7 +83,9 @@
 			<property name="sessionFactory" ref="sessionFactory"></property>
 		</bean>
 		
-		
+		  <!-- 权限鉴定类 -->
+   		 <bean id="permissionCheck" class="yzwTax.itcast.core.permission.impl.permissionCheckImpl"></bean>
+    
 		<!-- 引入其他配置 -->
 		<import resource="classpath:yzwTax/itcast/test/conf/*-spring.xml"/>
 		<import resource="classpath:yzwTax/itcast/nsfw/*/conf/*-spring.xml"/>

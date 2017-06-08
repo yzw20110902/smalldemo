@@ -37,11 +37,13 @@
         <tr>
             <td class="tdBg" width="200px">创建人：</td>
             <td>
-            
+            	<s:textfield name="info.creator" />
             </td>
+
             <td class="tdBg" width="200px">创建时间：</td>
             <td>
-            
+            	<s:date name="info.createTime" format="yyyy-MM-dd HH:mm"/>
+             	<s:hidden name="info.createTime"/>
             </td>
         </tr>
     </table>
