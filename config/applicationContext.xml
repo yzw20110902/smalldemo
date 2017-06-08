@@ -88,14 +88,9 @@
     
 		<!-- 引入其他配置 -->
 		<import resource="classpath:yzwTax/itcast/test/conf/*-spring.xml"/>
-		<import resource="classpath:yzwTax/itcast/nsfw/*/conf/*-spring.xml"/>
-	<!-- 	
-		<import resource="classpath:yzw/test/conf/*-spring.xml"/>
-		<import resource="classpath:yzw/config/bean-base.xml"/>
-		<import resource="classpath:yzw/config/bean-action.xml"/>
-		<import resource="classpath:yzw/config/bean-dao.xml"/>
-		<import resource="classpath:yzw/config/bean-service.xml"/>  -->
 		
+		<import resource="classpath:yzwTax/itcast/nsfw/*/conf/*-spring.xml"/>
+	
 		
 		
 </beans>     

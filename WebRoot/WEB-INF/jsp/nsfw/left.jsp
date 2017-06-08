@@ -88,7 +88,7 @@
                             class="down"></s> </a></dt>
                 </dl>
                 <dl class="">
-                    <dt><a class="tssl" href="#" target="mainFrame"><b></b>投诉受理管理<s
+                    <dt><a class="tssl" href="${ctx }nsfw/complain_listUI.action" target="mainFrame"><b></b>投诉受理管理<s
                             class="down"></s> </a></dt>
                 </dl>
                 <dl class="">

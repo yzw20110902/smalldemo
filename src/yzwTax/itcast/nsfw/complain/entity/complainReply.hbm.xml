@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="yzwTax.itcast.nsfw.complain.entity.complainReply" table="complain_reply">
+  <id name="replyId" type="java.lang.String">
+   		<column length="32" name="reply_id"/>
+   		<generator class="uuid.hex"/>
+  </id>
+  <many-to-one name="complain" class="yzwTax.itcast.nsfw.complain.entity.complain">
+  	<column name="comp_id" length="32" not-null="true"></column>
+  </many-to-one>
+  	<property name="replyer" type="java.lang.String">
+  		<column name="replyer" length="20" />
+  	</property>
+  	
+  	<property name="replyDept" type="string">
+  		<column name="reply_dept" length="100"/>
+  	</property>
+  	
+  	<property name="replyTime" type="timestamp">
+  		<column name="reply_time" length="19"/>
+  	</property>
+  	<property name="replyContent" type="string">
+  		<column name="reply_content" length="300"/>
+  	</property>
+  	
+  
+  
+ 
+ </class>
+</hibernate-mapping>

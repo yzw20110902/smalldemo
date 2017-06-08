@@ -51,6 +51,8 @@
 	<include file="yzwTax/itcast/home/conf/home-struts.xml"></include>
 	<!-- 包含home -->
 	<include file="yzwTax/itcast/login/conf/login-struts.xml"></include>
+	<!-- 包含投诉的文件 -->
+	<include file="yzwTax/itcast/nsfw/complain/conf/complain-struts.xml"></include>
 	
 	
 	
