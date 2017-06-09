@@ -1,16 +1,15 @@
-﻿﻿<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     pageContext.setAttribute("ctx", request.getContextPath()) ;
 %>
-
+ 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
     <title>国税协同办公平台</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="${ctx}/css/home.css" rel="stylesheet" type="text/css" />
-
+	<%@include file="/common/header.jsp"%>
 </head>
 
 <body>
@@ -89,7 +88,7 @@
         <li><a href="javascript:void(0);">行政管理</a></li>
         <li><a href="javascript:void(0);">后勤服务</a></li>
         <li><a href="javascript:void(0);">在线学习</a></li>       
-        <li><a href="${ctx }/nsfw/home_frame.action">纳税服务</a> </li>
+        <li><a href="${ctx}/nsfw/home_frame.action">纳税服务</a> </li>
         <li><a href="javascript:void(0);">我的空间</a></li>
     </ul>
 </div>
@@ -106,17 +105,24 @@
                 <tr>
                     <td width="76" height="100" align="center" valign="middle">
                         <div class="left-tx">
+                            	
+                            <s:if test="%{#session.SYS_USER.headImg!=null&&#session.SYS_USER.headImg!=''}">
+                            <img src="${basePath1}img/<s:property value="#session.SYS_USER.headImg"/>" width="70" height="70" />
+                            </s:if>	
+                            <s:else>
                             
-							<img src="${ctx}/images/home/gs09.png" width="70" height="70" />
+                            	<img src="${ctx}/images/home/gs09.png" width="70" height="70" />
+                            </s:else>
+							
                         </div>
                     </td>
                     <td width="5%"><img src="${ctx}/images/home/gs10.png" width="4" height="59" alt="" /></td>
                     <td width="60%"><table width="95%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td colspan="2" style=" font-weight:bold; color:#3a7daa;">xx名</td>
+                            <td colspan="2" style=" font-weight:bold; color:#3a7daa;"><s:property value="#session.SYS_USER.name"/></td>
                         </tr>
                         <tr>
-                            <td colspan="2">所属部门：xx部门</td>
+                            <td colspan="2">所属部门：<s:property value="#session.SYS_USER.dept"/></td>
                         </tr>
                     </table>
                     </td>
@@ -134,16 +140,21 @@
                 <h1>信息列表</h1>
             </div>
             <table width="98%" border="0" align="center">
-            	
+            	<s:iterator value="infoList" >
                 <tr>
                     <td height="23">
-                    xx标题
+                		<s:url var="infoViewUrl" action="home_infoViewUI" namespace="/sys">
+                			<s:param name="info.infoId"><s:property value="infoId"/></s:param>
+                		</s:url>
+                		<s:a href="%{#infoViewUrl}" target="_blank">
+               			<s:property value="title"/>
+               			</s:a>
                     </td>
-                    <td width="150px">xx分类</td>
-                    <td width="150px">xx创建人</td>
-                    <td width="150px">xx创建时间</td>
+                    <td width="150px"><s:property value="#InfoTypeMap[type]"/></td>
+                    <td width="150px"><s:property value="creator"/></td>
+                    <td width="150px"><s:date name="createTime" format="yyyy-MM-dd HH:mm"/></td>
                 </tr>
-                
+                </s:iterator>
             </table>
         </div>
     </div>
