@@ -8,7 +8,7 @@
     <title>我要投诉</title>
 </head>
 <body>
-<form id="form" name="form" action="" method="post" enctype="multipart/form-data">
+<form id="form" name="form" action="${basePath }sys/home_complainAdd.action" method="post" enctype="multipart/form-data">
     <div class="vp_d_1">
         <div style="width:1%;float:left;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
         <div class="vp_d_1_1">
@@ -22,11 +22,16 @@
         </tr>
         <tr>
             <td class="tdBg">被投诉人部门：</td>
-            <td></td>
+            <td>
+            	<s:select name="comp.toCompDept" list="#{'':'请选择','部门A':'A','部门B':'B' }"></s:select>
+            </td>
         </tr>
         <tr>
             <td class="tdBg">被投诉人姓名：</td>
-            <td></td>
+            <td>
+            
+            
+            </td>
         </tr>
         <tr>
             <td class="tdBg">投诉内容：</td>
@@ -40,7 +45,7 @@
     </table>
 
     <div class="tc mt20">
-        <input type="button" class="btnB2" value="保存" />
+        <input type="button" class="btnB2" value="保存" onclick="doSubmit()" />
         &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button"  onclick="javascript:window.close()" class="btnB2" value="关闭" />
     </div>
@@ -49,4 +54,39 @@
     </div>
 </form>
 </body>
+<script type="text/javascript">
+
+	function doSubmit(){
+		$.ajax({
+			url:"${basePath }sys/home_complainAdd.action",
+			type:'post',
+			data:$("#form").serialize(),
+			async:'false',
+			success:function(msg){
+				
+				
+				
+				if(msg=="success"){
+					alert("投诉成功")
+					window.opener.parent.location.reload(true);
+					
+					window.close();
+					
+					
+				}
+				
+				
+				
+			},
+			error:function(err){
+				
+				alert("投诉失败")
+			}
+			
+		})
+		
+		
+	}
+
+</script>
 </html>
