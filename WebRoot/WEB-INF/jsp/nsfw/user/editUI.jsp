@@ -19,7 +19,7 @@
    <%--  <s:debug><s:property value="user.name"/></s:debug> --%>
         <tr>
             <td class="tdBg" width="200px">所属部门：</td>
-            <td><s:select name="user.dept" list="#{'A':'技术','B':'Hr'}"/></td>
+            <td><s:select name="user.dept1" list="#deptList" listKey="id" listValue="name"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">头像：</td>

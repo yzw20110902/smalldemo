@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import yzwTax.itcast.core.dao.BaseDao;
+import yzwTax.itcast.nsfw.dept.entity.Dept;
 import yzwTax.itcast.nsfw.user.entity.User;
 import yzwTax.itcast.nsfw.user.entity.UserRole;
 
@@ -24,6 +25,10 @@ public interface UserDao extends BaseDao<User> {
 	// 保存用户角色
 
 	public void saveUserRole(UserRole userRole);
+
+	// 保存用户对应的部门
+
+	public void saveUserDept(Dept dept);
 
 	// 根据用户id 删除该用户的所有用户角色
 	public void deleteUserRoleByUserId(Serializable id);

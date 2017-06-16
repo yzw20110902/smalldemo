@@ -7,12 +7,14 @@
    		<column length="32" name="id"/>
    		<generator class="uuid.hex"/>
   </id>
-  <property name="name" type="java.lang.String">
+  		<property name="name" type="java.lang.String">
 			<column name="name" length="20" not-null="true" />
 		</property>
-		<property name="dept" type="java.lang.String">
-			<column name="dept" length="20" not-null="true" />
-		</property>		
+		<property name="dept1" type="java.lang.String">
+			<column name="dept" length="32" not-null="true" />
+		</property>	
+		
+		<!-- <many-to-one name="dept" class="yzwTax.itcast.nsfw.dept.entity.Dept" column="dept_id"  ></many-to-one> -->
 		<property name="account" type="java.lang.String">
 			<column name="account" length="50" not-null="true" />
 		</property>

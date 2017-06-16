@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
+import yzwTax.itcast.core.page.PageResult;
+import yzwTax.itcast.core.util.QueryHelper;
+import yzwTax.itcast.nsfw.dept.entity.Dept;
 import yzwTax.itcast.nsfw.user.entity.User;
 import yzwTax.itcast.nsfw.user.entity.UserRole;
 
@@ -63,4 +66,18 @@ public interface UserService {
 	// 根据用户的账号和密码查询用户列表
 	public List<User> findUserByAccountAndPass(String account, String password);
 
+	// 条件查询实体列表
+
+	public List<User> findObjects(String hql, List<Object> parameters);
+
+	// 条件查询实体列表--查询QueryHelper;
+	public List<User> findObjects(QueryHelper queryHelper);
+
+	// 分页条件查询实体列表--查询助手queryHelper
+	public PageResult getPageResult(QueryHelper queryHelper, int pageNo,
+			int pageSize);
+
+	// 保存用户对应的部门
+
+	public void saveUserDept(Dept dept);
 }

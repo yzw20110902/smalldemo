@@ -17,7 +17,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
+import yzwTax.itcast.core.page.PageResult;
 import yzwTax.itcast.core.util.ExcelUtil;
+import yzwTax.itcast.core.util.QueryHelper;
+import yzwTax.itcast.nsfw.dept.entity.Dept;
 import yzwTax.itcast.nsfw.role.entity.Role;
 import yzwTax.itcast.nsfw.user.dao.UserDao;
 import yzwTax.itcast.nsfw.user.entity.User;
@@ -115,7 +118,7 @@ public class UserServiceImpl implements UserService {
 					user.setAccount(cell1.getStringCellValue());
 					// 所属部门
 					Cell cell2 = row.getCell(2);
-					user.setDept(cell2.getStringCellValue());
+					user.setDept1(cell2.getStringCellValue());
 					// 性别
 					Cell cell3 = row.getCell(3);
 					user.setGender(cell3.getStringCellValue().equals("男"));
@@ -187,6 +190,7 @@ public class UserServiceImpl implements UserService {
 	public void saveUserAndRole(User user, String... roleIds) {
 		// 1. 保存用户
 		save(user);
+
 		// 2.保存对应角色
 		if (roleIds != null) {
 			for (String roleId : roleIds) {
@@ -196,6 +200,7 @@ public class UserServiceImpl implements UserService {
 
 			}
 		}
+
 	}
 
 	@Override
@@ -212,5 +217,31 @@ public class UserServiceImpl implements UserService {
 						roleId), user.getId())));
 			}
 		}
+	}
+
+	@Override
+	public List<User> findObjects(String hql, List<Object> parameters) {
+		// TODO Auto-generated method stub
+		return userDao.findObjects(hql, parameters);
+	}
+
+	@Override
+	public List<User> findObjects(QueryHelper queryHelper) {
+		// TODO Auto-generated method stub
+		return userDao.findObjects(queryHelper);
+	}
+
+	@Override
+	public PageResult getPageResult(QueryHelper queryHelper, int pageNo,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		return userDao.getPageResult(queryHelper, pageNo, pageSize);
+	}
+
+	@Override
+	public void saveUserDept(Dept dept) {
+
+		userDao.saveUserDept(dept);
+
 	}
 }

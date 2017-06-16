@@ -8,7 +8,7 @@
 	  			<column name="role_id"></column>
 	  		</key-many-to-one>
 	  		<key-property name="userId" type="java.lang.String">
-	  			<column name="user_id " length="32" ></column>
+	  			<column name="user_id " length="32"  ></column>
 	  		</key-property>
 	  </composite-id>	
  </class>

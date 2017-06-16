@@ -1,7 +1,6 @@
 package yzwTax.itcast.test;
 
-import java.util.Date;
-
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -48,21 +47,16 @@ public class TestMerge {
 
 		Transaction transaction = session.beginTransaction();
 
-		User user = new User();
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT imonth, COUNT(comp_id)")
+				.append(" FROM tmonth LEFT JOIN complain ON imonth=MONTH(comp_time)")
+				.append(" AND YEAR(comp_time)=?").append(" GROUP BY imonth ")
+				.append(" ORDER BY imonth");
+		SQLQuery sqlQuery = session.createSQLQuery(sb.toString());
 
-		user.setAccount("3423423412");
-		user.setBirthday(new Date());
-		user.setDept("1");
-		user.setEmail("501887062@qq.com");
-		user.setGender(true);
-		user.setHeadImg("./dwefwe/msh.jpg");
-		user.setMemo("momo");
-		user.setMobile("18133250566");
-		user.setName("yuzhaowu");
-		user.setPassword("12312312");
-		user.setState("0");
+		sqlQuery.setParameter(0, 2017);
 
-		session.save(user);
+		System.out.println(sqlQuery.list());
 		transaction.commit();
 
 		session.close();

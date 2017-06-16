@@ -69,6 +69,8 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 		// TODO Auto-generated method stub
 		Query query = getSession().createQuery(hql);
 
+		System.out.println("q" + hql);
+
 		if (parameters != null) {
 
 			for (int i = 0; i < parameters.size(); i++) {
@@ -85,6 +87,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 		// TODO Auto-generated method stub
 
 		Query query = getSession().createQuery(queryHelper.getQueryListHql());
+		System.out.println("q1" + queryHelper.getQueryListHql());
 		List<Object> parameters = queryHelper.getParameters();
 		if (parameters != null) {
 
@@ -128,6 +131,9 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 		}
 		long totalCount = (Long) queryCount.uniqueResult();
 
+		System.out.println("KKKKK"
+				+ new PageResult(totalCount, pageNo, pageSize, items)
+						.getItems());
 		return new PageResult(totalCount, pageNo, pageSize, items);
 	}
 

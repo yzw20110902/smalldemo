@@ -53,6 +53,8 @@
 	<include file="yzwTax/itcast/login/conf/login-struts.xml"></include>
 	<!-- 包含投诉的文件 -->
 	<include file="yzwTax/itcast/nsfw/complain/conf/complain-struts.xml"></include>
+	<!-- 包含部门的的文件 -->
+	<include file="yzwTax/itcast/nsfw/dept/conf/dept-struts.xml"></include>
 	
 	
 	

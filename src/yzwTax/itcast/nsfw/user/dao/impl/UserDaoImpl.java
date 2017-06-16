@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 
 import yzwTax.itcast.core.dao.impl.BaseDaoImpl;
+import yzwTax.itcast.nsfw.dept.entity.Dept;
 import yzwTax.itcast.nsfw.user.dao.UserDao;
 import yzwTax.itcast.nsfw.user.entity.User;
 import yzwTax.itcast.nsfw.user.entity.UserRole;
@@ -76,4 +77,10 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		return query.list();
 	}
 
+	@Override
+	public void saveUserDept(Dept dept) {
+
+		getHibernateTemplate().save(dept);
+
+	}
 }

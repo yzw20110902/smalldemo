@@ -122,7 +122,7 @@
                             <td colspan="2" style=" font-weight:bold; color:#3a7daa;"><s:property value="#session.SYS_USER.name"/></td>
                         </tr>
                         <tr>
-                            <td colspan="2">所属部门：<s:property value="#session.SYS_USER.dept"/></td>
+                            <td colspan="2">所属部门：<s:property value="#session.dept"/></td>
                         </tr>
                     </table>
                     </td>
@@ -174,7 +174,7 @@
                 <tr>
                     <td height="23">
                     <s:url var="complainViewUrl" action="home_complainViewUI" namespace="/sys">
-                			<s:param name="info.infoId"><s:property value="infoId"/></s:param>
+                			<s:param name="comp.compId"><s:property value="compId"/></s:param>
                 		</s:url>
                 		<s:a href="%{#complainViewUrl}" target="_blank">
                     	<s:property value="compTitle"/>

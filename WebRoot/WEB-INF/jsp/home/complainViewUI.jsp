@@ -18,45 +18,71 @@
     	<tr><td colspan="2" align="center">投诉人信息</td></tr>
         <tr>
             <td class="tdBg" width="250px">是否匿名投诉：</td>
-            <td></td>
+            <td>
+            	<s:property value="comp.isNm?'匿名投诉':'非匿名投诉'"/>
+            
+            </td>
         </tr>
         <tr>
             <td class="tdBg">投诉人单位：</td>
-            <td></td>
+            <td>
+            	<s:if test="!comp.isNm">
+            		<s:property value="comp.compCompany"/>
+            	</s:if>
+            </td>
         </tr>
         <tr>
             <td class="tdBg">投诉人姓名：</td>
-            <td></td>
+            <td>
+            	<s:if test="!comp.isNm">
+            		<s:property value="comp.compName"/>
+            	</s:if>
+            </td>
         </tr>
         <tr>
             <td class="tdBg">投诉人手机：</td>
             <td>
+            
+            	<s:if test="!comp.isNm">
+            		<s:property value="comp.compMobile"/>
+            	</s:if>
             </td>
         </tr>
         <tr><td colspan="2" align="center">投诉信息</td></tr>
         <tr>
             <td class="tdBg">投诉时间：</td>
-            <td></td>
+            <td>
+            	<s:date name="comp.compTime" format="yyyy-MM-dd HH:mm:ss"/>
+            </td>
         </tr>
         <tr>
             <td class="tdBg">被投诉部门：</td>
-            <td></td>
+            <td>
+            	<s:property value="comp.toCompDept"/>
+            </td>
         </tr>
         <tr>
             <td class="tdBg">被投诉人：</td>
-            <td></td>
+            <td>
+            	<s:property value="comp.toCompName"/>
+            </td>
         </tr>
         <tr>
             <td class="tdBg">投诉标题：</td>
-            <td></td>
+            <td>
+            	<s:property value="comp.compTitle"/>
+            </td>
         </tr>
         <tr>
             <td class="tdBg">投诉内容：</td>
-            <td></td>
+            <td>
+            	<s:property value="comp.compContent"/>
+            </td>
         </tr>
         <tr><td colspan="2" align="center">受理信息</td></tr>
         <tr>
             <td colspan="2">
+            <s:iterator value="complain."></s:iterator>
             <fieldset style="border: solid 1px #c0c0c0;margin-top:5px;"><legend style="color:green;font-weight:bold;">回复1&nbsp;</legend>
 						<div style="width:100%; text-align:center;color:#ccc;maring-top:5px;">
 						回复部门：xxx&nbsp;&nbsp;

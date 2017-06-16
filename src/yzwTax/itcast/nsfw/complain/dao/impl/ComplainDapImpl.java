@@ -1,10 +1,28 @@
 package yzwTax.itcast.nsfw.complain.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.SQLQuery;
+
 import yzwTax.itcast.core.dao.impl.BaseDaoImpl;
 import yzwTax.itcast.nsfw.complain.dao.ComplainDao;
-import yzwTax.itcast.nsfw.complain.entity.complain;
+import yzwTax.itcast.nsfw.complain.entity.Complain;
 
-public class ComplainDapImpl extends BaseDaoImpl<complain> implements
+public class ComplainDapImpl extends BaseDaoImpl<Complain> implements
 		ComplainDao {
 
+	@Override
+	public List<Object[]> getAnnualStatisticDataByYear(int year) {
+		// TODO Auto-generated method stub
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT imonth, COUNT(comp_id)")
+				.append(" FROM tmonth LEFT JOIN complain ON imonth=MONTH(comp_time)")
+				.append(" AND YEAR(comp_time)=?").append(" GROUP BY imonth ")
+				.append(" ORDER BY imonth");
+		SQLQuery sqlQuery = getSession().createSQLQuery(sb.toString());
+
+		sqlQuery.setParameter(0, year);
+		// System.out.println("JKKKK==" + sqlQuery.list());
+		return sqlQuery.list();
+	}
 }

@@ -40,18 +40,18 @@
                             <td width="100" align="center">受理状态</td>
                             <td width="100" align="center">操作</td>
                         </tr>
-                    <%--    <s:iterator value="pageResult.items" status="st"> --%>
+                    <s:iterator value="pageResult.items" status="st"> 
                             <tr <s:if test="#st.odd"> bgcolor="f8f8f8" </s:if> >
                                 <td align="center"><s:property value="compTitle"/></td>
                                 <td align="center"><s:property value="toCompDept"/></td>
                                 <td align="center"><s:property value="toCompName"/></td>
                                 <td align="center"><s:date name="compTime" format="yyyy-MM-dd HH:mm"/></td>
-                                <td align="center"><%-- <s:property value="#complainStateMap[state]"/> --%></td>
+                                <td align="center"><s:property value="#complainStateMap[state]"/></td>
                                 <td align="center">
                                     <a href="javascript:doDeal('<s:property value='compId'/>')">受理</a>
                                 </td>
                             </tr>
-                      <%--   </s:iterator> --%>
+                       </s:iterator> 
                     </table>
                 </div>
             </div>
@@ -61,10 +61,17 @@
 			cellpadding="0">
 			<tr>
 				<td align="right">
-                 	总共1条记录，当前第 1 页，共 1 页 &nbsp;&nbsp;
-                            <a href="#">上一页</a>&nbsp;&nbsp;<a href="#">下一页</a>
-					到&nbsp;<input type="text" style="width: 30px;" onkeypress="if(event.keyCode == 13){doGoPage(this.value);}" min="1"
-					max="" value="1" /> &nbsp;&nbsp;
+                 	总共<s:property value="pageResult.totalCount"/>条记录，当前第 <s:property value="pageResult.pageNo"/> 页，共<s:property value="pageResult.totalPageCount"/>页 &nbsp;&nbsp;
+                           <s:if test="pageResult.pageNo>1">
+                           		<a href="javascript:doGoPage(<s:property value='pageResult.pageNo-1' />)">上一页</a>
+                           </s:if>
+                           
+                           <s:if test="pageResult.pageNo<pageResult.totalPageCount">
+                            	<a  href="javascript:doGoPage(<s:property value='pageResult.pageNo+1'/>)">下一页</a>
+                           </s:if>
+                           
+					到&nbsp;<input type="text" id="pageNo" name="pageNo" style="width: 30px;" onkeypress="if(event.keyCode == 13){doGoPage(this.value);}" min="1"
+					max="" value="<s:property value="pageResult.pageNo"/>" /> &nbsp;&nbsp;
 			    </td>
 			</tr>
 		</table>	
@@ -75,4 +82,36 @@
 </form>
 
 </body>
+<script type="text/javascript">
+
+var list_url = "${basePath}nsfw/complain_listUI.action";
+	//搜索
+	function doSearch(){
+		//重置页号
+		$("#pageNo").val(1);
+		document.forms[0].action = list_url;
+		document.forms[0].submit();
+	}
+	//受理
+	function doDeal(compId){
+		document.forms[0].action = "${basePath}nsfw/complain_dealUI.action?complain.compId=" + compId;
+		document.forms[0].submit();
+	}
+	//投诉统计
+	function doAnnualStatistic(){
+		document.forms[0].action = "${basePath}nsfw/complain_annualStatisticChartUI.action";
+		document.forms[0].submit();
+	}
+
+	//翻页
+	function doGoPage(pageNo){
+		
+		document.getElementById("pageNo").value = pageNo;
+		document.forms[0].action=list_url;
+		document.forms[0].submit();
+	}
+	
+
+</script>
+
 </html>

@@ -10,6 +10,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import yzwTax.itcast.core.constant.Constant;
+import yzwTax.itcast.nsfw.dept.entity.Dept;
+import yzwTax.itcast.nsfw.dept.service.deptService;
 import yzwTax.itcast.nsfw.user.entity.User;
 import yzwTax.itcast.nsfw.user.service.UserService;
 
@@ -19,9 +21,12 @@ public class LoginAction extends ActionSupport {
 
 	@Resource
 	private UserService userService;
+	@Resource
+	private deptService deptService;
 
 	private User user;
 	private String loginResult;
+	private Dept dept;
 
 	public String toLoginUI() {
 
@@ -49,6 +54,14 @@ public class LoginAction extends ActionSupport {
 
 					ServletActionContext.getRequest().getSession()
 							.setAttribute(Constant.USER, user);
+
+					ServletActionContext
+							.getRequest()
+							.getSession()
+							.setAttribute(
+									"dept",
+									deptService.findObjectById(user.getDept1())
+											.getName());
 					Log log = LogFactory.getLog(getClass());
 					log.error("用户名称" + user.getAccount() + "登录了系统");
 					return "home";
@@ -106,6 +119,14 @@ public class LoginAction extends ActionSupport {
 
 	public void setLoginResult(String loginResult) {
 		this.loginResult = loginResult;
+	}
+
+	public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
 	}
 
 }

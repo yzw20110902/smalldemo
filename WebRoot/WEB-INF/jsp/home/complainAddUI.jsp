@@ -23,13 +23,14 @@
         <tr>
             <td class="tdBg">被投诉人部门：</td>
             <td>
-            	<s:select name="comp.toCompDept" list="#{'':'请选择','部门A':'A','部门B':'B' }"></s:select>
+            	<s:select id="toCompDept" name="comp.toCompDept" list="#{'':'请选择','部门A':'A','部门B':'B' }" onchange=" doSelectDept()"></s:select>
             </td>
         </tr>
         <tr>
             <td class="tdBg">被投诉人姓名：</td>
             <td>
-            
+            	<select id="toCompName" name="comp.toCompName">
+            	</select>
             
             </td>
         </tr>
@@ -56,6 +57,59 @@
 </body>
 <script type="text/javascript">
 
+	function doSelectDept(){
+		//1.获取部门
+		var dept=$("#toCompDept option:selected").val();
+		if(dept!=""){
+			
+			$.ajax({
+				url:"${basePath }sys/home_getUserJson.action",
+				data:{"dept":dept},
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					
+					alert(JSON.stringify(data));
+					console.log(JSON.stringify(data));
+					if(data != null && data != "" && data != undefined){
+    					if("success" == data.msg){
+    						var toCompName = $("#toCompName");
+    						toCompName.empty();
+    						$.each(data.userList, function(index, user){
+    							toCompName.append("<option value='" + user.name + "'>" + user.name + "</option>");
+    						});
+    					} else {alert("获取被投诉人列表失败！");}
+    				} else {
+    					alert("获取被投诉人列表失败！");
+    				}
+					
+				},
+				error:function(){
+					
+					
+				}
+				
+
+			})
+			
+		}
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	function doSubmit(){
 		$.ajax({
 			url:"${basePath }sys/home_complainAdd.action",
@@ -63,29 +117,19 @@
 			data:$("#form").serialize(),
 			async:'false',
 			success:function(msg){
-				
-				
-				
+
 				if(msg=="success"){
 					alert("投诉成功")
 					window.opener.parent.location.reload(true);
 					
-					window.close();
-					
-					
+					window.close();				
 				}
-				
-				
-				
 			},
 			error:function(err){
 				
 				alert("投诉失败")
-			}
-			
+			}		
 		})
-		
-		
 	}
 
 </script>

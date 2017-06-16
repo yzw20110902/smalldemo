@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import yzwTax.itcast.nsfw.dept.entity.Dept;
+
 public class User implements Serializable {
 
 	private String id;
-	private String dept;
+	private String dept1;
 	private String account;
 	private String name;
 	private String password;
@@ -20,6 +22,7 @@ public class User implements Serializable {
 	private Date birthday;
 	private String memo;
 
+	private Dept dept;
 	private List<UserRole> userRoles;
 
 	// 用户状态
@@ -29,7 +32,7 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(String id, String dept, String account, String name,
+	public User(String id, Dept dept, String account, String name,
 			String password, String headImg, boolean gender, String state,
 			String mobile, String email, Date birthday, String memo) {
 		this.id = id;
@@ -50,15 +53,23 @@ public class User implements Serializable {
 		return id;
 	}
 
+	public String getDept1() {
+		return dept1;
+	}
+
+	public void setDept1(String dept1) {
+		this.dept1 = dept1;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getDept() {
+	public Dept getDept() {
 		return dept;
 	}
 
-	public void setDept(String dept) {
+	public void setDept(Dept dept) {
 		this.dept = dept;
 	}
 

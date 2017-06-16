@@ -10,11 +10,13 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONObject;
 
 import yzwTax.itcast.core.constant.Constant;
 import yzwTax.itcast.core.util.QueryHelper;
-import yzwTax.itcast.nsfw.complain.entity.complain;
+import yzwTax.itcast.nsfw.complain.entity.Complain;
 import yzwTax.itcast.nsfw.complain.service.ComplainService;
 import yzwTax.itcast.nsfw.info.entity.Info;
 import yzwTax.itcast.nsfw.info.service.InfoService;
@@ -35,7 +37,7 @@ public class HomeAction extends ActionSupport {
 
 	private Info info;
 
-	private complain comp;
+	private Complain comp;
 
 	private Map<String, Object> return_map;
 
@@ -58,10 +60,10 @@ public class HomeAction extends ActionSupport {
 
 		// 加载集合状态
 		ActionContext.getContext().getContextMap()
-				.put("compState", complain.COMPLAIN_STATE_MAP);
+				.put("compState", Complain.COMPLAIN_STATE_MAP);
 
 		// 加载投诉信息列表
-		QueryHelper queryHelper2 = new QueryHelper(complain.class, "c");
+		QueryHelper queryHelper2 = new QueryHelper(Complain.class, "c");
 
 		queryHelper2.addCondition("c.compName=?", user.getName());
 		// 根据投诉时间升序
@@ -70,7 +72,7 @@ public class HomeAction extends ActionSupport {
 		// 根据投诉状态进行降序
 		queryHelper2.addOrderByProperty("c.state", QueryHelper.OREDER_BY_ASC);
 
-		List<complain> compList = complainService.getPageResult(queryHelper2,
+		List<Complain> compList = complainService.getPageResult(queryHelper2,
 				1, 6).getItems();
 		ActionContext.getContext().getContextMap().put("compList", compList);
 
@@ -87,7 +89,7 @@ public class HomeAction extends ActionSupport {
 		try {
 			if (comp != null) {
 
-				comp.setState(complain.COMPLAIN_STATE_UNDONE);
+				comp.setState(Complain.COMPLAIN_STATE_UNDONE);
 				comp.setCompTime(new Timestamp(new Date().getTime()));
 				User user = (User) ServletActionContext.getRequest()
 						.getSession().getAttribute(Constant.USER);
@@ -115,12 +117,44 @@ public class HomeAction extends ActionSupport {
 
 	public void getUserJson() {
 
+		try {
+			// 1.获取部门
+			String dept = ServletActionContext.getRequest()
+					.getParameter("dept");
+
+			if (StringUtils.isNotBlank(dept)) {
+				QueryHelper queryHelper = new QueryHelper(User.class, "u");
+				queryHelper.addCondition("u.dept like ?", " % " + dept);
+				// 2.根据部门查询用户列表
+				List<User> userList = userService.findObjects();
+
+				// 创建json对象
+
+				JSONObject json = new JSONObject();
+				json.put("msg", "success");
+
+				json.accumulate("userList", userList);
+
+				HttpServletResponse response = ServletActionContext
+						.getResponse();
+				response.setContentType("text/html");
+				ServletOutputStream outputStream = response.getOutputStream();
+				outputStream.write(json.toString().getBytes("utf-8"));
+				outputStream.close();
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 	}
 
 	public String complainViewUI() {
 		// 加载集合状态
 		ActionContext.getContext().getContextMap()
-				.put("compState", complain.COMPLAIN_STATE_MAP);
+				.put("compState", Complain.COMPLAIN_STATE_MAP);
 
 		if (comp != null) {
 
@@ -153,11 +187,11 @@ public class HomeAction extends ActionSupport {
 		this.info = info;
 	}
 
-	public complain getComp() {
+	public Complain getComp() {
 		return comp;
 	}
 
-	public void setComp(complain comp) {
+	public void setComp(Complain comp) {
 		this.comp = comp;
 	}
 

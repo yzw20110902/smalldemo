@@ -1,7 +1,9 @@
 package yzwTax.itcast.nsfw.user.action;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -13,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
 import yzwTax.itcast.core.action.BaseAction;
+import yzwTax.itcast.nsfw.dept.entity.Dept;
+import yzwTax.itcast.nsfw.dept.service.deptService;
 import yzwTax.itcast.nsfw.role.service.RoleService;
 import yzwTax.itcast.nsfw.user.entity.User;
 import yzwTax.itcast.nsfw.user.entity.UserRole;
@@ -27,9 +31,11 @@ public class UserAction extends BaseAction {
 
 	@Resource
 	private RoleService roleService;
+	@Resource
+	private deptService deptService;
 	private User user;
 	private List<User> userList;
-
+	private Dept dept;
 	private String[] selectRow;
 	private File headImg;
 	private String headImgContenttype;
@@ -41,10 +47,21 @@ public class UserAction extends BaseAction {
 
 	private String[] userRoleIds;
 
+	private String deptId;
+
 	// 列表页面
 	// @ResponseBody
 	public String listUI() throws Exception {
 
+		List<Dept> deptList = deptService.findObjects();
+		Map<String, String> DEPT_TYPE_MAP = new HashMap<String, String>();
+		for (int i = 0; i < deptList.size(); i++) {
+			DEPT_TYPE_MAP.put(deptList.get(i).getId(), deptList.get(i)
+					.getName());
+
+		}
+		ActionContext.getContext().getContextMap()
+				.put("deptList", DEPT_TYPE_MAP);
 		try {
 			userList = userSerivce.findObjects();
 
@@ -61,6 +78,9 @@ public class UserAction extends BaseAction {
 
 		ActionContext.getContext().getContextMap()
 				.put("roleList", roleService.findObjects());
+
+		ActionContext.getContext().getContextMap()
+				.put("deptList", deptService.findObjects());
 
 		return "addUI";
 	}
@@ -93,7 +113,10 @@ public class UserAction extends BaseAction {
 					user.setHeadImg(fileName);
 
 				}
+				// Dept dept = deptService.findObjectById(deptId);
+				// userSerivce.saveUserDept(dept);
 				userSerivce.saveUserAndRole(user, userRoleIds);
+
 				// userSerivce.save(user);
 
 			}
@@ -110,6 +133,9 @@ public class UserAction extends BaseAction {
 	public String editUI() {
 		ActionContext.getContext().getContextMap()
 				.put("roleList", roleService.findObjects());
+
+		ActionContext.getContext().getContextMap()
+				.put("deptList", deptService.findObjects());
 		if (user != null && user.getId() != null) {
 			user = userSerivce.findObjectById(user.getId());
 
@@ -346,6 +372,22 @@ public class UserAction extends BaseAction {
 
 	public void setUserRoleIds(String[] userRoleIds) {
 		this.userRoleIds = userRoleIds;
+	}
+
+	public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+
+	public String getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
 	}
 
 }

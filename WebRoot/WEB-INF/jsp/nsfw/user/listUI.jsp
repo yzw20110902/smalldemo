@@ -90,7 +90,17 @@
                                 <td align="center"><input type="checkbox" name="selectRow" value='<s:property value="id"/>'/></td>
                                 <td align="center"><s:property value="name"/></td>
                                 <td align="center"><s:property value="account"/></td>
-                                <td align="center"><s:property value="dept"/></td>
+                                <td align="center">
+                                	 <s:property value="#deptList[dept1]"/>
+                                	<%--  <s:iterator value="#deptList" var="id" status="st">
+                                	 	<s:if test="#st.id==user.dept1">
+                                	 		<s:property value="name"/>
+                                	 	</s:if>
+                                	 
+                                	 </s:iterator> --%>
+                                	 
+                             <%--     <s:select name="dept1" list="#deptList" listKey="id" listValue="name" disabled="true"/>  --%>
+                                 </td>
                                 <td align="center"><s:property value="gender?'男':'女'"/></td>
                                 <td align="center"><s:property value="email"/></td>
                                 <td align="center">
